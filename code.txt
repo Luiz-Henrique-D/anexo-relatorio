@@ -1,0 +1,71 @@
+#include <HCSR04.h>
+
+
+#define motorRightFORWARD 3
+#define motorRightBACK 4
+#define motorLeftFORWARD 7
+#define motorLeftBACK 5
+#define sensorDiagonalRightTrigger 8
+#define sensorDiagonalRightEcho 9
+#define sensorDiagonalLeftTrigger 10
+#define sensorDiagonalLeftEcho 11
+#define sensorCenterTrigger 12
+#define sensorCenterEcho 6
+
+UltraSonicDistanceSensor sensorDiagonalRight(sensorDiagonalRightTrigger, sensorDiagonalRightEcho);
+UltraSonicDistanceSensor sensorDiagonalLeft(sensorDiagonalLeftTrigger, sensorDiagonalLeftEcho);
+UltraSonicDistanceSensor sensorCenter(sensorCenterTrigger, sensorCenterEcho);
+
+void setup() {
+  pinMode(motorRightFORWARD, OUTPUT);
+  pinMode(motorRightBACK, OUTPUT);
+  pinMode(motorLeftBACK, OUTPUT);
+  pinMode(motorLeftFORWARD, OUTPUT);
+
+
+}
+
+void loop() {
+  float distanceRight = sensorDiagonalRight.measureDistanceCm();
+  float distanceLeft = sensorDiagonalLeft.measureDistanceCm();
+  float distanceCenter = sensorCenter.measureDistanceCm();
+   
+  if((distanceRight > 10) && (distanceLeft > 10) && (distanceCenter > 15)){
+    digitalWrite(motorLeftBACK, LOW);
+    digitalWrite(motorRightBACK, LOW);
+    digitalWrite(motorRightFORWARD, HIGH);
+    digitalWrite(motorLeftFORWARD, HIGH);
+  }
+  
+  if((distanceRight <= 30) && (distanceLeft > 10)){
+    digitalWrite(motorRightBACK, LOW);
+    digitalWrite(motorLeftBACK, HIGH);
+  }
+  if((distanceLeft <= 30) && (distanceRight > 10)){
+    digitalWrite(motorRightBACK, HIGH);
+ digitalWrite(motorLeftBACK, LOW);
+  }
+
+  if(distanceCenter <= 15){
+    digitalWrite(motorLeftBACK, LOW);
+      digitalWrite(motorRightFORWARD, LOW);  
+      digitalWrite(motorLeftFORWARD, LOW);
+      digitalWrite(motorRightBACK, LOW);
+   if(distanceRight > 10){
+      digitalWrite(motorRightFORWARD, HIGH);
+        digitalWrite(motorLeftBACK, LOW);
+    }else if(distanceLeft > 10){
+       digitalWrite(motorLeftFORWARD, HIGH);
+       digitalWrite(motorRightBACK, HIGH);
+    }else{
+       
+digitalWrite(motorLeftBACK, HIGH);
+ digitalWrite(motorRightBACK, HIGH);
+
+    }
+  }
+
+
+  
+ 
+}
