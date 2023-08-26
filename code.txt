@@ -51,18 +51,7 @@ void loop() {
       digitalWrite(motorRightFORWARD, LOW);  
       digitalWrite(motorLeftFORWARD, LOW);
       digitalWrite(motorRightBACK, LOW);
-   if(distanceRight > 10){
-      digitalWrite(motorRightFORWARD, HIGH);
-        digitalWrite(motorLeftBACK, LOW);
-    }else if(distanceLeft > 10){
-       digitalWrite(motorLeftFORWARD, HIGH);
-       digitalWrite(motorRightBACK, HIGH);
-    }else{
-       
-digitalWrite(motorLeftBACK, HIGH);
- digitalWrite(motorRightBACK, HIGH);
-
-    }
+   
   }
 
 
